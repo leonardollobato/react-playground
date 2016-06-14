@@ -1,6 +1,5 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-var ListManager = require('./components/ListManager.jsx');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Routes from './Routes.jsx';
 
-ReactDOM.render(
-    <ListManager title="Ingredients"/>, document.getElementById('ingredients'));
+ReactDOM.render(React.createElement(Routes), document.querySelector('#main'));
