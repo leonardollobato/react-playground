@@ -26813,7 +26813,7 @@ var Routes = function (_React$Component) {
 
 exports.default = Routes;
 
-},{"./components/Base.jsx":252,"./components/Page1.jsx":254,"./components/Page2.jsx":255,"history":46,"react":248,"react-router":87}],252:[function(require,module,exports){
+},{"./components/Base.jsx":252,"./components/Page1.jsx":256,"./components/Page2.jsx":257,"history":46,"react":248,"react-router":87}],252:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -26903,20 +26903,26 @@ var EmailField = function (_React$Component) {
 		var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(EmailField).call(this));
 
 		_this.state = {
-			valid: false,
+			valid: true,
 			value: ""
 		};
+		_this.onChange = _this.onChange.bind(_this);
 		return _this;
 	}
 
 	_createClass(EmailField, [{
+		key: 'clearField',
+		value: function clearField() {
+			this.setState({ value: "" });
+		}
+	}, {
 		key: 'onChange',
 		value: function onChange(element) {
-			//var val = element.target.value;
-			if (!_emailValidator2.default.validate(element.target.value)) {
-				this.setState({ valid: false, value: element.target.value });
+			var val = element.target.value;
+			if (!_emailValidator2.default.validate(val)) {
+				this.setState({ valid: false, value: val });
 			} else {
-				this.setState({ valid: true, value: element.target.value });
+				this.setState({ valid: true, value: val });
 			}
 		}
 	}, {
@@ -26938,6 +26944,159 @@ var EmailField = function (_React$Component) {
 exports.default = EmailField;
 
 },{"email-validator":4,"react":248}],254:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _NameField = require('./NameField.jsx');
+
+var _NameField2 = _interopRequireDefault(_NameField);
+
+var _EmailField = require('./EmailField.jsx');
+
+var _EmailField2 = _interopRequireDefault(_EmailField);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var LeadCapture = function (_React$Component) {
+	_inherits(LeadCapture, _React$Component);
+
+	function LeadCapture() {
+		_classCallCheck(this, LeadCapture);
+
+		var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(LeadCapture).call(this));
+
+		_this.onSubmit = _this.onSubmit.bind(_this);
+		return _this;
+	}
+
+	_createClass(LeadCapture, [{
+		key: 'onSubmit',
+		value: function onSubmit(element) {
+
+			console.log(element);
+			if (!this.refs.fieldEmail.state.valid) {
+				alert("You suck at filling out forms. Email is always required in a lead capture form. Dummy!");
+			} else {
+				var httpRequestBody = {
+					email: this.refs.fieldEmail.state.value,
+					firstName: this.refs.fieldName.state.value
+				};
+				console.log(httpRequestBody);
+
+				this.refs.fieldEmail.clearField();
+				this.refs.fieldName.clearField();
+			}
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			return _react2.default.createElement(
+				'div',
+				{ className: 'col-sm-3' },
+				_react2.default.createElement(
+					'div',
+					{ className: 'panel panel-default' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'panel-body' },
+						_react2.default.createElement(_NameField2.default, { type: 'Full', ref: 'fieldName' }),
+						_react2.default.createElement(_EmailField2.default, { ref: 'fieldEmail' }),
+						_react2.default.createElement(
+							'button',
+							{ className: 'btn btn-primary', onClick: this.onSubmit },
+							'Submit'
+						)
+					)
+				)
+			);
+		}
+	}]);
+
+	return LeadCapture;
+}(_react2.default.Component);
+
+exports.default = LeadCapture;
+
+},{"./EmailField.jsx":253,"./NameField.jsx":255,"react":248}],255:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var NameField = function (_React$Component) {
+	_inherits(NameField, _React$Component);
+
+	function NameField() {
+		_classCallCheck(this, NameField);
+
+		var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(NameField).call(this));
+
+		_this.state = {
+			value: ""
+		};
+		_this.onChange = _this.onChange.bind(_this);
+		return _this;
+	}
+
+	_createClass(NameField, [{
+		key: "clearField",
+		value: function clearField() {
+			this.setState({ value: "" });
+		}
+	}, {
+		key: "onChange",
+		value: function onChange(element) {
+			this.setState({ value: element.target.value });
+		}
+	}, {
+		key: "render",
+		value: function render() {
+			return _react2.default.createElement(
+				"div",
+				{ className: "form-group" },
+				_react2.default.createElement("input", { className: "form-control", value: this.state.value, onChange: this.onChange, placeholder: this.props.type + " Name" })
+			);
+		}
+	}]);
+
+	return NameField;
+}(_react2.default.Component);
+
+;
+
+exports.default = NameField;
+
+},{"react":248}],256:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -26983,7 +27142,7 @@ var Page1 = function (_React$Component) {
 
 exports.default = Page1;
 
-},{"react":248}],255:[function(require,module,exports){
+},{"react":248}],257:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -27029,7 +27188,7 @@ var Page2 = function (_React$Component) {
 
 exports.default = Page2;
 
-},{"react":248}],256:[function(require,module,exports){
+},{"react":248}],258:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -27044,12 +27203,14 @@ var _Routes = require('./Routes.jsx');
 
 var _Routes2 = _interopRequireDefault(_Routes);
 
-var _EmailField = require('./components/EmailField.jsx');
+var _LeadCapture = require('./components/LeadCapture.jsx');
 
-var _EmailField2 = _interopRequireDefault(_EmailField);
+var _LeadCapture2 = _interopRequireDefault(_LeadCapture);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_reactDom2.default.render(_react2.default.createElement(_EmailField2.default, null), document.querySelector('#main'));
+_reactDom2.default.render(_react2.default.createElement(_LeadCapture2.default, null), document.querySelector('#main'));
+_reactDom2.default.render(_react2.default.createElement(_LeadCapture2.default, null), document.querySelector('#main1'));
+_reactDom2.default.render(_react2.default.createElement(_LeadCapture2.default, null), document.querySelector('#main2'));
 
-},{"./Routes.jsx":251,"./components/EmailField.jsx":253,"react":248,"react-dom":57}]},{},[256]);
+},{"./Routes.jsx":251,"./components/LeadCapture.jsx":254,"react":248,"react-dom":57}]},{},[258]);

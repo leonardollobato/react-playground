@@ -2,20 +2,24 @@ import React from 'react';
 import EmailValidator from 'email-validator';
 
 class EmailField extends React.Component {
+
 	constructor() {
 		super();
 		this.state = {
-			valid: false,
+			valid: true,
 			value: ""
 		};
+		this.onChange = this.onChange.bind(this);
 	}
-
+	clearField() {
+		this.setState({value: ""});
+	};
 	onChange(element) {
-		//var val = element.target.value;
-		if (!EmailValidator.validate(element.target.value)) {
-			this.setState({valid: false, value: element.target.value})
+		var val = element.target.value;
+		if (!EmailValidator.validate(val)) {
+			this.setState({valid: false, value: val})
 		} else {
-			this.setState({valid: true, value: element.target.value})
+			this.setState({valid: true, value: val})
 		}
 	};
 
